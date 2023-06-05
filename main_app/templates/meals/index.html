@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Meal List</h1>
+
+{% for meal in meals %}
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ meal.mealtype }}</span>
+            <p>Meal: {{ meal.mealtype }}</p>
+            <p>Date: {{ meal.date }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
