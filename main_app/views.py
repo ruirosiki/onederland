@@ -19,7 +19,7 @@ def about(request):
 
 # meals view/controller function
 def meals_index(request):
-    meals = Meal.objects.all()
+    meals = Meal.objects.filter(user=request.user)
     return render(request, 'meals/index.html', {
         'meals': meals
     })
