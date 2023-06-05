@@ -12,8 +12,10 @@ urlpatterns = [
 
     # meals route
     path('meals/', views.meals_index, name='meals_index'),
-    path('meals/<int:meal_id>/', views.meals_details, name='meals_details'),
+    path('meals/<int:meal_id>/', views.meals_details, name='detail'),
     path('meals/create/', views.MealCreate.as_view(), name='meals_create'),
+    path('meals/<int:pk>/update/', views.MealUpdate.as_view(), name='meals_update'),
+    path('meals/<int:pk>/delete/', views.MealDelete.as_view(), name='meals_delete'),
     
     # accounts route
     path('accounts/signup/', views.signup, name='signup'),
