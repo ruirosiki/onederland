@@ -2,11 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Meal
 from django.contrib.auth import login 
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-meals = [
-    {'mealtype': 'breakfast', 'date': 20230605 }
-]
 
 
 # Create your views here.
@@ -21,9 +19,33 @@ def about(request):
 
 # meals view/controller function
 def meals_index(request):
+    meals = Meal.objects.filter(user=request.user)
     return render(request, 'meals/index.html', {
         'meals': meals
     })
+
+def meals_details(request, meal_id):
+    meal = Meal.objects.get(id=meal_id)
+    return render(request, 'meals/detail.html', {
+        'meal':meal
+    })
+
+
+class MealCreate(LoginRequiredMixin, CreateView):
+    model = Meal
+    fields = ['date', 'meal_type']
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+class MealUpdate(LoginRequiredMixin, UpdateView):
+    model = Meal
+    fields = ['date', 'meal_type']
+
+class MealDelete(LoginRequiredMixin, DeleteView):
+    model = Meal
+    success_url = '/meals/'
+
 
 def signup(request):
     error_message = ''
