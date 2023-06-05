@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if object%}
+<h1>Edit {{object.name}}</h1> 
+{%else%}
+<h1>Add meal</h1>
+{% endif%}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="submit" value="submit!" class="btn">
+</form>
+
+<script>
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+
+    const selectEl = document.getElementById('id_meal_type');
+    M.FormSelect.init(selectEl);
+</script>
+
+{% endblock%}

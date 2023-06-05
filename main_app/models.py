@@ -17,7 +17,7 @@ class Meal(models.Model):
         max_length=1, choices=MEAL_TYPES, default=MEAL_TYPES[0][0]
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    
     def get_absolute_url(self):
         return reverse("detail", kwargs={"meal_id": self.id})
 
