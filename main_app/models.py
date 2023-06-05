@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 MEAL_TYPES = (
     ("B", "Breakfast"),
@@ -15,6 +16,7 @@ class Meal(models.Model):
     meal_type = models.CharField(
         max_length=1, choices=MEAL_TYPES, default=MEAL_TYPES[0][0]
     )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse("detail", kwargs={"meal_id": self.id})
