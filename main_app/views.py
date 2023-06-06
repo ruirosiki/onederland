@@ -47,6 +47,27 @@ def food_form(request, meal_id):
     meal = Meal.objects.get(id=meal_id)
     return render(request, 'main_app/food_form.html',{'meal':meal})
 
+def input_food(request, meal_id):
+    meal = Meal.objects.get(id=meal_id)
+    list = ()
+    button_clicked = False
+
+    if request.method == 'POST':
+        if 'add_button' in request.POST:
+            button_clicked = True
+            list.append(meal)
+    context = {
+        'meal':meal,
+        'button_clicked':button_clicked
+    }
+    return redirect(request, 'main_app/food_form.html', context)
+
+
+def on_click(request):
+    button_clicked = True
+
+
+
 
 class MealCreate(LoginRequiredMixin, CreateView):
     model = Meal
