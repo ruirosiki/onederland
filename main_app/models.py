@@ -11,7 +11,7 @@ MEAL_TYPES = (
 
 
 # Create your models here.
-class Foods(models.Model):
+class Food(models.Model):
     name = models.CharField(max_length=100)
     total_calories = models.IntegerField()
     total_fat = models.IntegerField()
@@ -20,7 +20,8 @@ class Foods(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class Meal(models.Model):
     date = models.DateField("meal date")
     meal_type = models.CharField(
@@ -28,7 +29,7 @@ class Meal(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    foods = models.ManyToManyField(Foods)
+    foods = models.ManyToManyField(Food)
 
     def get_absolute_url(self):
         return reverse("food_form", kwargs={"meal_id": self.id})
@@ -40,4 +41,3 @@ class Meal(models.Model):
     # filtered list with recent dates first
     class Meta:
         ordering = ["-date"]
-

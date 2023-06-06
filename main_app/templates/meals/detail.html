@@ -9,10 +9,18 @@
                 <p>Meal: {{ meal.meal_type }}</p>
                 <p>Date: {{ meal.date }}</p>
             </div>
-        <div class="card-action">
-            <a href="{% url 'meals_update' meal.id %}">Edit</a>
-            <a href="{% url 'meals_delete' meal.id %}">Delete</a>
-        </div>
-</div>
+            <div class="card-action">
+                <a href="{% url 'meals_update' meal.id %}">Edit</a>
+                <a href="{% url 'meals_delete' meal.id %}">Delete</a>
+            </div>
+            <div class="col s6">
+                <form action="{% url 'add_food' meal.id %}" method="POST">
+                    {% csrf_token %}
+                    <!-- Render the inputs -->
+                    {%csrf_token%}
+                    <input type="text" name="query" placeholder="Add Food">
+                    <input type="submit" class="btn" value="Add Food">
+                </form>
+            </div>
 
-{% endblock %}
+            {% endblock %}
