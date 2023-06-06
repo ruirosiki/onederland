@@ -1,7 +1,8 @@
 from django.forms import ModelForm
-from .models import Foods
+from .models import Food
+
 
 class FoodForm(ModelForm):
     class Meta:
-        model = Foods
-        fields = ['name', 'total_calories','total_fat','total_protein', 'total_carbs']
+        model = Food
+        fields = ["name", "total_calories", "total_fat", "total_protein", "total_carbs"]
