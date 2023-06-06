@@ -21,6 +21,20 @@ class Food(models.Model):
     def __str__(self):
         return self.name
 
+    def filtered_stats(pair):
+        wanted_stats = [
+            "name",
+            # "calories",
+            # "fat_total_g",
+            # "protein_g",
+            # "carbohydrates_total_g",
+        ]
+        key, value = pair
+        if key in wanted_stats == pair:
+            return True
+        else:
+            return False
+
 
 class Meal(models.Model):
     date = models.DateField("meal date")

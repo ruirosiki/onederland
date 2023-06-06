@@ -13,30 +13,27 @@ from .forms import FoodForm
 
 # Create your views here.
 def add_food(request, meal_id):
-    print(meal_id)
-    print(request)
     api_url = "https://api.calorieninjas.com/v1/nutrition?query="
     query = request.POST.get("query")
-
     response = requests.get(
         api_url + query,
         headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"},
     )
     data = response.json()
-    print(data)
-    filtered_data = []
-    for x, y in data.items():
-        if (
-            x == "name"
-            or "calories"
-            or "fat_total_g"
-            or "protein_g"
-            or "carbohydrates_total_g"
-        ):
-            filtered_data.append([x, y])
-    print(filtered_data)
+    item_data = data["items"]
+    stats = item_data[0]
+    print("this is stats.items()", stats.items())
+    print("this is food.filtered", Food.filtered_stats)
+    filtered_data = dict(filter(Food.filtered_stats, stats))
+    print("this is filtered data", filtered_data)
+    # for x in stats:
+    #     print("this is x:", x)
+    #     # print("this is y:", y)
+    #     if x == "name":
+    #         filtered_data.append(x[0])
+    #     return filtered_data
     if response.status_code == requests.codes.ok:
-        print(response.text)
+        # print(response.text)
         form = FoodForm(request.POST)
         if form.is_valid():
             new_food = form.save(commit=False)
