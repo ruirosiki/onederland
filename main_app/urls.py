@@ -16,7 +16,9 @@ urlpatterns = [
     path('meals/create/', views.MealCreate.as_view(), name='meals_create'),
     path('meals/<int:pk>/update/', views.MealUpdate.as_view(), name='meals_update'),
     path('meals/<int:pk>/delete/', views.MealDelete.as_view(), name='meals_delete'),
-    
+    path('meals/<int:meal_id>/food_form/', views.food_form, name='food_form'),
+    path('meals/<int:meal_id>/food_form/', views.input_food, name='input_food'),
+
     # accounts route
     path('accounts/signup/', views.signup, name='signup'),
 ]

@@ -5,25 +5,27 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
+import json
 
 # API - Calorie Ninja
-api_url = "https://api.calorieninjas.com/v1/nutrition?query="
-query = "12oz new york strip"
-response = requests.get(
-    api_url + query, headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"}
-)
-if response.status_code == requests.codes.ok:
-    print(response.text)
-else:
-    print("Error:", response.status_code, response.text)
+def home(request):
+    api_url = "https://api.calorieninjas.com/v1/nutrition?query="
+    query = "12oz new york strip"
+    response = requests.get(
+        api_url + query, headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"}
+    )
+    data = response.json()
+    if response.status_code == requests.codes.ok:
+        print(response.text)
+    else:
+        print("Error:", response.status_code, response.text)
+    return render(request, "home.html", {'data':data})
 
 
 # Create your views here.
 
 
 # home view/controller function
-def home(request):
-    return render(request, "home.html")
 
 
 # about view/controller function
@@ -40,6 +42,31 @@ def meals_index(request):
 def meals_details(request, meal_id):
     meal = Meal.objects.get(id=meal_id)
     return render(request, "meals/detail.html", {"meal": meal})
+
+def food_form(request, meal_id):
+    meal = Meal.objects.get(id=meal_id)
+    return render(request, 'main_app/food_form.html',{'meal':meal})
+
+def input_food(request, meal_id):
+    meal = Meal.objects.get(id=meal_id)
+    list = ()
+    button_clicked = False
+
+    if request.method == 'POST':
+        if 'add_button' in request.POST:
+            button_clicked = True
+            list.append(meal)
+    context = {
+        'meal':meal,
+        'button_clicked':button_clicked
+    }
+    return redirect(request, 'main_app/food_form.html', context)
+
+
+def on_click(request):
+    button_clicked = True
+
+
 
 
 class MealCreate(LoginRequiredMixin, CreateView):
