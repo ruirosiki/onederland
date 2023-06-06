@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
 
+# API - Calorie Ninja
 api_url = "https://api.calorieninjas.com/v1/nutrition?query="
 query = "12oz new york strip"
 response = requests.get(
