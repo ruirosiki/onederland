@@ -24,17 +24,17 @@ def add_food(request, meal_id):
     )
     data = response.json()
     print(data)
-    # filtered_data = []
-    # for x, y in data.items():
-    #     if (
-    #         x == "name"
-    #         or "calories"
-    #         or "fat_total_g"
-    #         or "protein_g"
-    #         or "carbohydrates_total_g"
-    #     ):
-    #         filtered_data.append([x, y])
-    # print(filtered_data)
+    filtered_data = []
+    for x, y in data.items():
+        if (
+            x == "name"
+            or "calories"
+            or "fat_total_g"
+            or "protein_g"
+            or "carbohydrates_total_g"
+        ):
+            filtered_data.append([x, y])
+    print(filtered_data)
     if response.status_code == requests.codes.ok:
         print(response.text)
         form = FoodForm(request.POST)
