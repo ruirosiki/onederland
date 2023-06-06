@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="" method="GET">
+    {%csrf_token%}
+    <input type="text" name="query" placeholder="Add Food">
+    <button type="submit" value="Search">Search</button>
+</form>
+
+{% endblock %}
