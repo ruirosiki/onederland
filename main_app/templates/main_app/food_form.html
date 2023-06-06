@@ -2,18 +2,12 @@
 
 {% block content %}
 
-<form action="" method="GET">
+<form action="" method="POST">
     {%csrf_token%}
     <input type="text" name="query" placeholder="Add Food">
-    <a href="{% url 'input_food' meal.id %}"><button method="POST" type='submit' name="add_button">Add Food</button></a>
-    <button type='submit'>Submit</button>
+    <button type='submit'>Add Food</button></a>
 </form>
 
-{% if button_clicked %}
-    <p>The button was clicked!</p>
-{% else %}
-    <p>Click the button to perform an action.</p>
-{% endif %}
 
 
 {% endblock %}
