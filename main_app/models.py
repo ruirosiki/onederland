@@ -21,19 +21,8 @@ class Food(models.Model):
     def __str__(self):
         return self.name
 
-    def filtered_stats(pair):
-        wanted_stats = [
-            "name",
-            # "calories",
-            # "fat_total_g",
-            # "protein_g",
-            # "carbohydrates_total_g",
-        ]
-        key, value = pair
-        if key in wanted_stats == pair:
-            return True
-        else:
-            return False
+    def get_absolute_url(self):
+        return reverse("foods_detail", kwargs={"pk": self.id})
 
 
 class Meal(models.Model):
@@ -43,10 +32,10 @@ class Meal(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    foods = models.ManyToManyField(Food)
+    # foods = models.ManyToManyField(Food)
 
     def get_absolute_url(self):
-        return reverse("food_form", kwargs={"meal_id": self.id})
+        return reverse("detail", kwargs={"meal_id": self.id})
 
     #
     def __str__(self):
