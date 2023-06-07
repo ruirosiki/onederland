@@ -22,13 +22,13 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">
-                            A {{ food.name }}
+                                {{ food.name }}
                             </span>
                         </div>
                         <div class="card-action">
-                            <form action="{% url 'unassoc_food' meal.id food.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn">Remove</button>
+                            <form action="{% url 'unassoc_food' meal.id food.id%}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn">Remove</button>
                             </form>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             </span>
                         </div>
                         <div class="card-action">
-                            <form action="{% url 'assoc_food' meal.id food.id %}" method="POST">
+                            <form action="{% url 'assoc_food' meal.id food.id%}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="btn">Add</button>
                             </form>
