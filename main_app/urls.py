@@ -14,10 +14,11 @@ urlpatterns = [
     path("meals/<int:pk>/update/", views.MealUpdate.as_view(), name="meals_update"),
     path("meals/<int:pk>/delete/", views.MealDelete.as_view(), name="meals_delete"),
     # path("meals/<int:meal_id>/food_form/", views.food_form, name="food_form"),
-    path("foods/search_food/", views.search_food, name="search_food"),
     # foods route
     path("foods/", views.FoodList.as_view(), name="foods_index"),
     path("foods/create/", views.FoodCreate.as_view(), name="foods_create"),
+    path("foods/food_add/", views.search_food, name="food_add"),
+    path("foods/foods_form/", views.food_form, name="foods_form"),
     # accounts route
     path("accounts/signup/", views.signup, name="signup"),
 ]

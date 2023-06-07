@@ -16,11 +16,13 @@ from .forms import FoodForm
 def search_food(request):
     api_url = "https://api.calorieninjas.com/v1/nutrition?query="
     query = request.POST.get("query")
+    print(query)
     response = requests.get(
-        api_url + query,
+        api_url + str(query),
         headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"},
     )
     data = response.json()
+    print(data)
     item_data = data["items"]
     stats = item_data[0]
     filtered_stats = lambda x, y: dict([(i, x[i]) for i in x if i in set(y)])
@@ -34,15 +36,11 @@ def search_food(request):
     filtered_data = filtered_stats(stats, wanted_stats)
     print("this is filtered data", filtered_data)
     if response.status_code == requests.codes.ok:
-        # print(response.text)
-        form = FoodForm(request.POST)
-        if form.is_valid():
-            new_food = form.save(commit=False)
-            new_food.save()
+        print(response.text)
     else:
         print("Error:", response.status_code, response.text)
     context = {"data": filtered_data}
-    return render(request, "food_form.html", context)
+    return render(request, "main_app/food_add.html", context)
 
 
 # home view/controller function
@@ -111,6 +109,10 @@ class MealUpdate(LoginRequiredMixin, UpdateView):
 class MealDelete(LoginRequiredMixin, DeleteView):
     model = Meal
     success_url = "/meals/"
+
+
+def food_form(request):
+    return render(request, "main_app/food_form.html")
 
 
 def signup(request):

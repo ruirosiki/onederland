@@ -1,25 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
-{% else %}
-<h1>Add Food</h1>
-{% endif %}
-<form action="" method="GET">
+<form action="{% url 'food_add' %}" method="POST">
     {%csrf_token%}
     <input type="text" name="query" placeholder="Food name"></input>
-    <button type="submit" value="Submit">Search</button>
-</form>
-    <form action="" method="POST">
-    {%for i in data%}
-    <p>calories: {{i.calories}} </p>
-    <p>Total fat: {{i.fat_total_g}} </p>
-    <p>Total protein: {{i.protein_g}}  </p>
-    <p>Total carbs: {{i.carbohydrates_total_g}}</p>
-    <button type='submit' class="btn" style="background-color: #fa475d">Add Food</button></a>
+    <!-- <a href="{% url 'home' %}" class="btn" style="background-color: #fa475D"></a> -->
+    <input type="submit" value="search" class="btn" style="background-color: #fa475d">
 </form>
 
 
-{% endfor %}
 {% endblock %}
