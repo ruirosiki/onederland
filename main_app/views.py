@@ -13,9 +13,9 @@ from .forms import FoodForm
 
 
 # Create your views here.
-def search_food(request):
+def foods_API(request):
     api_url = "https://api.calorieninjas.com/v1/nutrition?query="
-    query = request.POST.get("query")
+    query = request.GET.get("query")
     response = requests.get(
         api_url + str(query),
         headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"},
@@ -38,7 +38,7 @@ def search_food(request):
     else:
         print("Error:", response.status_code, response.text)
     context = {"data": filtered_data}
-    return render(request, "main_app/food_add.html", context)
+    return redirect(request, "foods_create", context)
 
 
 # home view/controller function
@@ -83,8 +83,8 @@ class MealDelete(LoginRequiredMixin, DeleteView):
     success_url = "/meals/"
 
 
-def food_form(request):
-    return render(request, "main_app/food_form.html")
+def foods_search(request):
+    return render(request, "main_app/food_search.html")
 
 
 def signup(request):
@@ -102,6 +102,10 @@ def signup(request):
     return render(request, "registration/signup.html", context)
 
 
+# def foods_form(request):
+#     return render(request, "foods_create")
+
+
 def assoc_food(request, meal_id, food_id):
     Meal.objects.get(id=meal_id).food.add(food_id)
     return redirect("detail", meal_id=meal_id)
@@ -115,7 +119,15 @@ class FoodList(LoginRequiredMixin, ListView):
 class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
     fields = "__all__"
+    print("success 1")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        print("success")
         return super().form_valid(form)
+
+
+# def food_create(request, self, form):
+#     food = request.session.GET("created_food")
+#     form.instance.user = self.request.food
+#     return food_create(form)

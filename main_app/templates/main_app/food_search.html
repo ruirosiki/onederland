@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action=" {% url 'foods_create' %}" method="GET">
+    {%csrf_token%}
+    <input type="text" name="query" placeholder="Food name"></input>
+    <!-- <a href="{% url 'home' %}" class="btn" style="background-color: #fa475D"></a> -->
+    <input type="submit" value="search" class="btn" style="background-color: #fa475d">
+</form>
+
+
+{% endblock %}
