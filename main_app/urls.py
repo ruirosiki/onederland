@@ -27,7 +27,7 @@ urlpatterns = [
     # foods route
     path("foods/", views.FoodList.as_view(), name="foods_index"),
     path("foods/foods_search/", views.foods_search, name="foods_search"),
-    # path("foods/foods_api/", views.foods_API, name="foods_api"),
+    path("foods/foods_api/", views.foods_API, name="foods_api"),
     path("foods/create/", views.FoodCreate.as_view(), name="foods_create"),
     # path("foods/foods_form/", views.foods_form, name="foods_form"),
     path("foods/<int:pk>/update/", views.FoodUpdate.as_view(), name="food_update"),

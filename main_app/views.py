@@ -35,11 +35,18 @@ def foods_API(request):
     filtered_data = filtered_stats(stats, wanted_stats)
     print("this is filtered data", filtered_data)
     if response.status_code == requests.codes.ok:
-        print(response.text)
+        print("success")
     else:
         print("Error:", response.status_code, response.text)
-    context = {"data": filtered_data}
-    return redirect(request, "foods_create", context)
+
+    # context = {"data": filtered_data}
+    request.session["filtered_data"] = filtered_data
+    print(filtered_data)
+    return redirect("foods_create")
+    # redirect_url = "foods/create/"
+    # for key, value in filtered_data.items():
+    #     redirect_url += f"{key} = {value}&"
+    # return redirect(redirect_url)
 
 
 # home view/controller function
@@ -132,6 +139,16 @@ class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
     fields = "__all__"
     print("success 1")
+
+    def get_initial(self):
+        initial = super().get_initial()
+        filtered_data = self.request.session.get("filtered_data", {})
+        initial["name"] = filtered_data.get("name", "")
+        initial["total_calories"] = int(filtered_data.get("calories", ""))
+        initial["total_fat"] = int(filtered_data.get("fat_total_g", ""))
+        initial["total_carbs"] = int(filtered_data.get("carbohydrates_total_g", ""))
+        initial["total_protein"] = int(filtered_data.get("protein_g", ""))
+        return initial
 
     def form_valid(self, form):
         form.instance.user = self.request.user
