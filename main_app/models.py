@@ -22,7 +22,7 @@ class Food(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("foods_detail", kwargs={"pk": self.id})
+        return reverse("foods_index")
 
 
 class Meal(models.Model):

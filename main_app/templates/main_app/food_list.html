@@ -5,12 +5,12 @@
     <div class="col s6">
         <div class="card">
             <div class="card-content">
-                <p>{%for i in data.items%}</p>
-                <span class="card-title">{{ i.name }}</span>
-                <p>Calories: {{ i.calories }}</p>
-                <p>Total Fat: {{i.fat_total_g}}</p>
-                <p>Protein: {{i.protein_g}}</p>
-                <p>Total Carbs: {{i.carbohydrates_total_g}}</p>
+                <p>{%for food in food_list%}</p>
+                <span class="card-title">{{ food.name }}</span>
+                <p>Calories: {{food.total_calories }}</p>
+                <p>Total Fat: {{food.total_fat}}</p>
+                <p>Protein: {{food.total_protein}}</p>
+                <p>Total Carbs: {{food.total_carbs}}</p>
 
                 {% endfor %}
             </div>
