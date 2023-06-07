@@ -16,13 +16,11 @@ from .forms import FoodForm
 def search_food(request):
     api_url = "https://api.calorieninjas.com/v1/nutrition?query="
     query = request.POST.get("query")
-    print(query)
     response = requests.get(
         api_url + str(query),
         headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"},
     )
     data = response.json()
-    print(data)
     item_data = data["items"]
     stats = item_data[0]
     filtered_stats = lambda x, y: dict([(i, x[i]) for i in x if i in set(y)])
@@ -64,32 +62,6 @@ def meals_index(request):
 def meals_details(request, meal_id):
     meal = Meal.objects.get(id=meal_id)
     return render(request, "meals/detail.html", {"meal": meal})
-
-
-# def food_form
-
-
-# def food_form(request, meal_id):
-#     meal = Meal.objects.get(id=meal_id)
-#     food_form = FoodForm()
-#     api_url = "https://api.calorieninjas.com/v1/nutrition?query="
-#     if request.method == "POST":
-#         query = request.POST.get("query")
-#         return query
-
-#     response = requests.get(
-#         api_url + query,
-#         headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"},
-#     )
-
-#     data = response.json()
-#     if response.status_code == requests.codes.ok:
-#         print(response.text)
-#     else:
-#         print("Error:", response.status_code, response.text)
-#     return render(
-#         request, "main_app/food_form.html", {"meal": meal, "food_form": food_form}
-#     )
 
 
 class MealCreate(LoginRequiredMixin, CreateView):
@@ -143,3 +115,7 @@ class FoodList(LoginRequiredMixin, ListView):
 class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
     fields = "__all__"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
