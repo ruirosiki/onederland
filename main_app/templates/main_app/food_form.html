@@ -8,17 +8,11 @@
 {% endif %}
 <form action="{% url 'foods_create' %}" method="POST">
     {% csrf_token %}
-    <p>Name: <input type="text" name="name" value="{{data.name}}"></p>
-    <p>Calories: <input type="text" name="total_calories" value="{{data.calories}}"></p>
-    <p>Fat: <input type="text" name="total_fat" value="{{data.fat_total_g}}"></p>
-    <p>Protein: <input type="text" name="total_protein" value="{{data.protein_g}}"></p>
-    <p>Carbs: <input type="text" name="total_carbs" value="{{data.carbohydrates_total_g}}"></p>
+    <table>
+        {{form.as_table}}
+    </table>
+
 
     <input type='submit' value="Add Food" class="btn" style="background-color: #fa475d"></input>
 </form>
 {% endblock %}
-
-
-
-
-
