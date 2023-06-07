@@ -7,12 +7,13 @@
 <h1>Add Food</h1>
 {% endif %}
 <form action="" method="POST">
+    {% csrf_token %}
+    <p>Name: <input type="text" value="{{data.name}}"></p>
+    <p>Calories: <input type="text" value="{{data.calories}}"></p>
+    <p>Fat: <input type="text" value="{{data.fat_total_g}}"></p>
+    <p>Protein: <input type="text" value="{{data.protein_g}}"></p>
+    <p>Carbs: <input type="text" value="{{data.carbohydrates_total_g}}"></p>
 
-    <p>Name: {{data.name}} </p>
-    <p>calories: {{data.calories}} </p>
-    <p>Total fat: {{data.fat_total_g}} </p>
-    <p>Total protein: {{data.protein_g}} </p>
-    <p>Total carbs: {{data.carbohydrates_total_g}}</p>
-    <button type='submit' class="btn" style="background-color: #fa475d">Add Food</button></a>
+    <input type='submit' value="Add Food" class="btn" style="background-color: #fa475d"></input></a>
 </form>
 {% endblock %}
