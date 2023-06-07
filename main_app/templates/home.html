@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Home</h1>
+<h1>Welcome {{user.name}}</h1>
 
 
-    <a href="{% url 'meals_create' %}">Add Meal</a>
+<a href="{% url 'meals_create' %}">Add Meal</a>
 
 
 <div class="row">
-    <div class="col s6">
-      <div class="card">
-        <div class="card-content">
-            <p>{%for i in data.items%}</p>
-          <span class="card-title">{{ i.name }}</span>
-          <p>Calories: {{ i.calories }}</p>
-          <p>Total Fat: {{i.fat_total_g}}</p>
-          <p>Protein: {{i.protein_g}}</p>
-          <p>Total Carbs: {{i.carbohydrates_total_g}}</p>
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <p>{%for i in data.items%}</p>
+        <span class="card-title">{{ i.name }}</span>
+        <p>Calories: {{ i.calories }}</p>
+        <p>Total Fat: {{i.fat_total_g}}</p>
+        <p>Protein: {{i.protein_g}}</p>
+        <p>Total Carbs: {{i.carbohydrates_total_g}}</p>
 
-          {% endfor %}
-        </div>
-{% endblock %}
+        {% endfor %}
+      </div>
+      {% endblock %}

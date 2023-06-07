@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from .models import Meal, Food
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
@@ -22,16 +23,16 @@ def add_food(request, meal_id):
     data = response.json()
     item_data = data["items"]
     stats = item_data[0]
-    print("this is stats.items()", stats.items())
-    print("this is food.filtered", Food.filtered_stats)
-    filtered_data = dict(filter(Food.filtered_stats, stats))
+    filtered_stats = lambda x, y: dict([(i, x[i]) for i in x if i in set(y)])
+    wanted_stats = [
+        "name",
+        "calories",
+        "fat_total_g",
+        "protein_g",
+        "carbohydrates_total_g",
+    ]
+    filtered_data = filtered_stats(stats, wanted_stats)
     print("this is filtered data", filtered_data)
-    # for x in stats:
-    #     print("this is x:", x)
-    #     # print("this is y:", y)
-    #     if x == "name":
-    #         filtered_data.append(x[0])
-    #     return filtered_data
     if response.status_code == requests.codes.ok:
         # print(response.text)
         form = FoodForm(request.POST)
@@ -41,6 +42,7 @@ def add_food(request, meal_id):
             new_food.save()
     else:
         print("Error:", response.status_code, response.text)
+    context = {"data": filtered_data}
     return redirect("detail", meal_id=meal_id)
 
 
@@ -70,31 +72,27 @@ def meals_details(request, meal_id):
 # def food_form
 
 
-def food_form(request, meal_id):
-    meal = Meal.objects.get(id=meal_id)
-    food_form = FoodForm()
-    api_url = "https://api.calorieninjas.com/v1/nutrition?query="
-    if request.method == "POST":
-        query = request.POST.get("query")
-        return query
+# def food_form(request, meal_id):
+#     meal = Meal.objects.get(id=meal_id)
+#     food_form = FoodForm()
+#     api_url = "https://api.calorieninjas.com/v1/nutrition?query="
+#     if request.method == "POST":
+#         query = request.POST.get("query")
+#         return query
 
-    response = requests.get(
-        api_url + query,
-        headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"},
-    )
+#     response = requests.get(
+#         api_url + query,
+#         headers={"X-Api-Key": "WckbYIY9LQLe8m72V8rEYw==YCE4Hjwib4uDUhdI"},
+#     )
 
-    data = response.json()
-    if response.status_code == requests.codes.ok:
-        print(response.text)
-    else:
-        print("Error:", response.status_code, response.text)
-    return render(
-        request, "main_app/food_form.html", {"meal": meal, "food_form": food_form}
-    )
-
-
-def on_click(request):
-    button_clicked = True
+#     data = response.json()
+#     if response.status_code == requests.codes.ok:
+#         print(response.text)
+#     else:
+#         print("Error:", response.status_code, response.text)
+#     return render(
+#         request, "main_app/food_form.html", {"meal": meal, "food_form": food_form}
+#     )
 
 
 class MealCreate(LoginRequiredMixin, CreateView):
@@ -129,3 +127,18 @@ def signup(request):
     form = UserCreationForm()
     context = {"form": form, "error_message": error_message}
     return render(request, "registration/signup.html", context)
+
+
+def assoc_food(request, meal_id, food_id):
+    Meal.objects.get(id=meal_id).food.add(food_id)
+    return redirect("detail", meal_id=meal_id)
+
+
+# Food Views
+class FoodList(LoginRequiredMixin, ListView):
+    model = Food
+
+
+class FoodCreate(LoginRequiredMixin, CreateView):
+    model = Food
+    fields = "__all__"

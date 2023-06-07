@@ -8,6 +8,7 @@
                 <span class="card-title">{{ meal.meal_type }}</span>
                 <p>Meal: {{ meal.meal_type }}</p>
                 <p>Date: {{ meal.date }}</p>
+                <p>Totals: </p>
             </div>
             <div class="card-action">
                 <a href="{% url 'meals_update' meal.id %}">Edit</a>
@@ -21,6 +22,25 @@
                     <input type="text" name="query" placeholder="Add Food">
                     <input type="submit" class="btn" value="Add Food">
                 </form>
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Calories</th>
+                            <th>Fat</th>
+                            <th>Proteins</th>
+                            <th>Carbs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for food in meal.food_set.all %}
+                        <tr>
+                            <td>{{feeding.name}}</td>
+                            <td>{{feeding.calories}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
             {% endblock %}

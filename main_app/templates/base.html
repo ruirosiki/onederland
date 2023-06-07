@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,25 +12,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    
+
 </head>
+
 <body>
     <header class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav-wrapper" style="background-color: #818CAC">
                 <ul>
-                    <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Onederland</a></li>
+                    <li><a href=" /" class="left brand-logo" style="color: #e8e9f3">&nbsp;&nbsp;Onederland</a></li>
                 </ul>
                 <ul class="right">
-                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'about' %}" style="color: #e8e9f3">About</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'meals_index' %}">Meals</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    <li><a href="{% url 'meals_index' %}" style="color: #e8e9f3">Meals</a></li>
+                    <li><a href="{% url 'meals_create' %}" style="color: #e8e9f3">Add Meals</a></li>
+                    <li><a href="{% url 'foods_index' %}" style="color: #e8e9f3">Foods</a></li>
+                    <li><a href="{% url 'foods_create' %}" style="color: #e8e9f3">Add Food</a></li>
+
+                    <li><a href="{% url 'logout' %}" style="color: #e8e9f3">Log Out</a></li>
 
 
                     {% else %}
-                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    <li><a href="{% url 'signup' %}" style="color: #e8e9f3">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}" style="color: #e8e9f3">Log In</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -39,8 +45,9 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="page-footer">
-        <div class="right">All Rights Reserved, &copy; 2023 Onederland &nbsp;</div>
+    <footer class="page-footer" style="background-color: #818CAC">
+        <div class="center">All Rights Reserved, &copy; 2023 Onederland &nbsp;</div>
     </footer>
 </body>
+
 </html>

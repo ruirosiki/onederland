@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if object%}
-<h1>Edit {{object.name}}</h1> 
+<h1>Edit {{object.name}}</h1>
 {%else%}
 <h1>Add meal</h1>
 {% endif%}
@@ -12,7 +12,7 @@
     <table>
         {{form.as_table}}
     </table>
-    <input type="submit" value="submit!" class="btn">
+    <input type="submit" value="submit!" class="btn" style="background-color: #fa475d">
 </form>
 
 <script>

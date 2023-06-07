@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% if object %}
+<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+{% else %}
+<h1>Add Food</h1>
+{% endif %}
 <form action="" method="POST">
     {%csrf_token%}
-    <input type="text" name="query" placeholder="Add Food">
+    <table>
+        {{ form.as_table }}
+    </table>
     <button type='submit'>Add Food</button></a>
 </form>
 
