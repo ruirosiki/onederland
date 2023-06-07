@@ -6,7 +6,7 @@
 {% else %}
 <h1>Add Food</h1>
 {% endif %}
-<form action="{% url 'foods_create' %}" method="POST">
+<form action="" method="POST">
     {% csrf_token %}
     <table>
         {{form.as_table}}
