@@ -13,7 +13,7 @@ from .forms import FoodForm
 
 
 # Create your views here.
-def add_food(request, meal_id):
+def search_food(request):
     api_url = "https://api.calorieninjas.com/v1/nutrition?query="
     query = request.POST.get("query")
     response = requests.get(
@@ -38,12 +38,11 @@ def add_food(request, meal_id):
         form = FoodForm(request.POST)
         if form.is_valid():
             new_food = form.save(commit=False)
-            new_food.meal_id = meal_id
             new_food.save()
     else:
         print("Error:", response.status_code, response.text)
     context = {"data": filtered_data}
-    return redirect("detail", meal_id=meal_id)
+    return render(request, "food_form.html", context)
 
 
 # home view/controller function
