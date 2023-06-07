@@ -6,14 +6,20 @@
 {% else %}
 <h1>Add Food</h1>
 {% endif %}
-<form action="" method="POST">
+<form action="" method="GET">
     {%csrf_token%}
-    <table>
-        {{ form.as_table }}
-    </table>
+    <input type="text" name="query" placeholder="Food name"></input>
+    <button type="submit" value="Submit">Search</button>
+</form>
+    <form action="" method="POST">
+    {%for i in data%}
+    <p>calories: {{i.calories}} </p>
+    <p>Total fat: {{i.fat_total_g}} </p>
+    <p>Total protein: {{i.protein_g}}  </p>
+    <p>Total carbs: {{i.carbohydrates_total_g}}</p>
     <button type='submit' class="btn" style="background-color: #fa475d">Add Food</button></a>
 </form>
 
 
-
+{% endfor %}
 {% endblock %}
