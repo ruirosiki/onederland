@@ -32,7 +32,7 @@ class Meal(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # foods = models.ManyToManyField(Food)
+    foods = models.ManyToManyField(Food)
 
     def get_absolute_url(self):
         return reverse("detail", kwargs={"meal_id": self.id})
