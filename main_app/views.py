@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
 import json
 from .forms import FoodForm
+from django.contrib.auth.decorators import login_required
 
 # API - Calorie Ninja
 
@@ -54,16 +55,18 @@ def about(request):
 
 
 # meals view/controller function
+@login_required
 def meals_index(request):
     meals = Meal.objects.filter(user=request.user)
     return render(request, "meals/index.html", {"meals": meals})
 
 
+@login_required
 def meals_details(request, meal_id):
     meal = Meal.objects.get(id=meal_id)
-    id_list = meal.foods.all().values_list('id')
+    id_list = meal.foods.all().values_list("id")
     foods = Food.objects.exclude(id__in=id_list)
-    return render(request, "meals/detail.html", {"meal": meal, 'foods': foods})
+    return render(request, "meals/detail.html", {"meal": meal, "foods": foods})
 
 
 class MealCreate(LoginRequiredMixin, CreateView):
@@ -108,13 +111,17 @@ def signup(request):
 #     return render(request, "foods_create")
 
 
+@login_required
 def assoc_food(request, meal_id, food_id):
     Meal.objects.get(id=meal_id).foods.add(food_id)
     return redirect("detail", meal_id=meal_id)
 
+
+@login_required
 def unassoc_food(request, meal_id, food_id):
     Meal.objects.get(id=meal_id).foods.remove(food_id)
     return redirect("detail", meal_id=meal_id)
+
 
 # Food Views
 class FoodList(LoginRequiredMixin, ListView):
@@ -130,14 +137,16 @@ class FoodCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         print("success")
         return super().form_valid(form)
-    
-class FoodUpdate(LoginRequiredMixin,UpdateView):
+
+
+class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
-    fields = ['total_calories', 'total_fat', 'total_protein', 'total_carbs']
+    fields = ["total_calories", "total_fat", "total_protein", "total_carbs"]
+
 
 class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food
-    success_url = '/foods'
+    success_url = "/foods"
 
 
 # def food_create(request, self, form):
