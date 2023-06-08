@@ -2,83 +2,117 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-
-<h1 class="welcome">Count Calories {{user.name}}</h1>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<h1 class="welcome">{{user.name}}' Daily Stats</h1>
 
 
 <div class="row">
   <div class="col s6">
     <div class="card">
       <div class="card-content">
-        <p>Total Calories: {{total_calories}}</p>
-        <p>Total Fat: {{total_fat}}</p>
-        <p>Total Protein: {{total_protein}}</p>
-        <p>Total Carbs: {{total_carbs}}</p>
+        <p id="cals">Total Calories: {{total_calories}}</p>
+        <p id="fat">Total Fat: {{total_fat}}</p>
+        <p id="protein">Total Protein: {{total_protein}}</p>
+        <p id="carbs">Total Carbs: {{total_carbs}}</p>
       </div>
     </div>
   </div>
 </div>
+<div class="col s6">
+  <div class="card">
+    <div class="card-content">
+      <div id="piechart">Pie Chart</div>
 
+      <script type="text/javascript">
+        // Load google charts
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        // Grab chart values
+        let cals = document.getElementById("cals");
+        let protein = document.getElementById("fat");
+        let fat = document.getElementById("protein");
+        let carbs = document.getElementById("carbs")
+        // Draw the chart and set the chart values
+        function drawChart() {
+          let data = google.visualization.arrayToDataTable([
+            ['Total Calories', cals]
+            ['Fat', fat],
+            ['Protein', protein],
+            ['Carbs', carbs],
+          ]);
 
-          <div class="card">
-            <div class="card-content">
-              {% for meal in meal_entries_B%}
-                <span class="card-title">{{ meal.get_meal_type_display }}</span>
-                {% for queryset in food_name_B %}
-                {% for food_name in queryset %}
-                <h4>{{ food_name }}</h4>
-                <p>Total Calories: {{total_calories_B}}</p>
-                <p>Total Fat: {{total_fat_B}}</p>
-                <p>Total Protein: {{total_protein_B}}</p>
-                <p>Total Carbs: {{total_carbs_B}}</p>
-                <div class="card-action">
-              </div>
-              {%endfor%}
-              {%endfor%}
-              {%endfor%}
-            </div>
-          </div>
+          // Optional; add a title and set the width and height of the chart
+          let options = { 'title': 'My Average Day', 'width': 550, 'height': 400 };
 
-          <div class="card">
-            <div class="card-content">
-              {% for meal in meal_entries_L%}
-              <span class="card-title">{{ meal.get_meal_type_display }}</span>
-              {% for queryset in food_name_L %}
-                {% for food_name in queryset %}
-                <h4>{{ food_name }}</h4>
-              <p>Total Calories: {{total_calories_L}}</p>
-              <p>Total Fat: {{total_fat_L}}</p>
-              <p>Total Protein: {{total_protein_L}}</p>
-              <p>Total Carbs: {{total_carbs_L}}</p>
-            <div class="card-action">
-            </div>
-            {%endfor%}
-            {%endfor%}
-            {%endfor%}
-          </div>
-        </div>
-            
-          <div class="card">
-            <div class="card-content">
-              {% for meal in meal_entries_D%}
-              <span class="card-title">{{ meal.get_meal_type_display }}</span>
-              {% for queryset in food_name_D %}
-                {% for food_name in queryset %}
-                <h4>{{ food_name }}</h4>
-              <p>Total Calories: {{total_calories_D}}</p>
-              <p>Total Fat: {{total_fat_D}}</p>
-              <p>Total Protein: {{total_protein_D}}</p>
-              <p>Total Carbs: {{total_carbs_D}}</p>
-            <div class="card-action">
-            </div>
-            {%endfor%}
-            {%endfor%}
-            {%endfor%}
-          </div>
-{% else %}
-<p class="summary">Track your progress with Onederland. <br>
-  Your one stop shop for food and <br>
-  health goal analytics</p>
-<a class="dotted" href="{% url 'about' %}">Learn more</a>
-{% endif %}
-{% endblock %}
+          // Display the chart inside the <div> element with id="piechart"
+          let chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          chart.draw(data, options);
+        }
+      </script>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-content">
+    {% for meal in meal_entries_B%}
+    <span class="card-title">{{ meal.get_meal_type_display }}</span>
+    <p>Total Fat: {{total_fat_B}}</p>
+    <p>Total Protein: {{total_protein_B}}</p>
+    <p>Total Carbs: {{total_carbs_B}}</p>
+    {% for queryset in food_name_B %}
+    {% for food_name in queryset %}
+    <h8>{{ food_name }}</h8>
+    <div class="card-action">
+    </div>
+    {%endfor%}
+    {%endfor%}
+    {%endfor%}
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    {% for meal in meal_entries_L%}
+    <span class="card-title">{{ meal.get_meal_type_display }}</span>
+    <p>Total Calories: {{total_calories_L}}</p>
+    <p>Total Fat: {{total_fat_L}}</p>
+    <p>Total Protein: {{total_protein_L}}</p>
+    <p>Total Carbs: {{total_carbs_L}}</p>
+    {% for queryset in food_name_L %}
+    {% for food_name in queryset %}
+    <h8>{{ food_name }}</h8>
+    <div class="card-action">
+    </div>
+    {%endfor%}
+    {%endfor%}
+    {%endfor%}
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    {% for meal in meal_entries_D%}
+    <span class="card-title">{{ meal.get_meal_type_display }}</span>
+    <p>Total Calories: {{total_calories_D}}</p>
+    <p>Total Fat: {{total_fat_D}}</p>
+    <p>Total Protein: {{total_protein_D}}</p>
+    <p>Total Carbs: {{total_carbs_D}}</p>
+    <hr>
+    {% for queryset in food_name_D %}
+    {% for food_name in queryset %}
+    <div class="foods_on_home">
+      <h8>{{ food_name }}</h8>
+    </div>
+    <div class="card-action">
+    </div>
+    {%endfor%}
+    {%endfor%}
+    {%endfor%}
+  </div>
+  {% else %}
+  <p class="summary">Track your progress with Onederland. <br>
+    Your one stop shop for food and <br>
+    health goal analytics</p>
+  <a class="dotted" href="{% url 'about' %}">Learn more</a>
+  {% endif %}
+  {% endblock %}

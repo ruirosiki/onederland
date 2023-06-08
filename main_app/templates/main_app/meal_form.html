@@ -4,17 +4,20 @@
 {% if object%}
 <h1>Edit {{object.name}}</h1>
 {%else%}
-<h1>Add meal</h1>
+<h1>Add Meal</h1>
 {% endif%}
-
-<form action="" method="POST">
-    {% csrf_token %}
-    <table>
-        {{form.as_table}}
-    </table>
-    <input type="submit" value="submit!" class="btn" style="background-color: #fa475d">
-</form>
-
+<div class="card">
+    <div class="card-content">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <br>
+            <input type="submit" value="submit!" class="btn" style="background-color: #fa475d">
+        </form>
+    </div>
+</div>
 <script>
     const dateEl = document.getElementById('id_date');
     M.Datepicker.init(dateEl, {
