@@ -4,20 +4,52 @@
 <h1>Welcome {{user.name}}</h1>
 
 
-<a href="{% url 'meals_create' %}">Add Meal</a>
-
-
 <div class="row">
   <div class="col s6">
     <div class="card">
       <div class="card-content">
-        <p>{%for i in data.items%}</p>
-        <span class="card-title">{{ i.name }}</span>
-        <p>Calories: {{ i.calories }}</p>
-        <p>Total Fat: {{i.fat_total_g}}</p>
-        <p>Protein: {{i.protein_g}}</p>
-        <p>Total Carbs: {{i.carbohydrates_total_g}}</p>
-
-        {% endfor %}
+        <p>Total Calories: {{total_calories}}</p>
+        <p>Total Fat: {{total_fat}}</p>
+        <p>Total Protein: {{total_protein}}</p>
+        <p>Total Carbs: {{total_carbs}}</p>
       </div>
-      {% endblock %}
+    </div>
+  </div>
+</div>
+    <div>
+        
+          <div class="card">
+            {% for meal in meal_entries_B %}
+            <div class="card-content">
+            <span class="card-title">{{ meal.get_meal_type_display }}</span>
+            <p>{{meal.foods}}</p>
+            <div class="card-action">
+              <a href="{% url 'meals_update' meal.id %}">Edit</a>
+              <a href="{% url 'meals_delete' meal.id %}">Delete</a>
+            </div>
+            {%endfor%}
+          <div class="card">
+            {% for meal in meal_entries_L %}
+            <div class="card-content">
+            <span class="card-title">{{ meal.get_meal_type_display }}</span>
+            <p>{{meal.foods}}</p>
+            <div class="card-action">
+              <a href="{% url 'meals_update' meal.id %}">Edit</a>
+              <a href="{% url 'meals_delete' meal.id %}">Delete</a>
+            </div>
+            {%endfor%}
+          <div class="card">
+            {% for meal in meal_entries_D %}
+            <div class="card-content">
+            <span class="card-title">{{ meal.get_meal_type_display }}</span>
+            <p>{{meal.foods}}</p>
+            <div class="card-action">
+              <a href="{% url 'meals_update' meal.id %}">Edit</a>
+              <a href="{% url 'meals_delete' meal.id %}">Delete</a>
+          </div>
+            {% endfor %}
+        </div>
+    </div>
+</a>
+
+{% endblock %}
