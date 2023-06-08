@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Meal, Food
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -102,10 +102,14 @@ def meals_index(request):
 
 @login_required
 def meals_details(request, meal_id):
-    meal = Meal.objects.get(id=meal_id)
+    meal = get_object_or_404(Meal, id=meal_id)
+    total_calories = meal.foods.aggregate(total=Sum('total_calories'))['total']
+    total_protein = meal.foods.aggregate(total=Sum('total_protein'))['total']
+    total_fat = meal.foods.aggregate(total=Sum('total_fat'))['total']
+    total_carbs = meal.foods.aggregate(total=Sum('total_carbs'))['total']
     id_list = meal.foods.all().values_list("id")
     foods = Food.objects.exclude(id__in=id_list)
-    return render(request, "meals/detail.html", {"meal": meal, "foods": foods})
+    return render(request, "meals/detail.html", {"meal": meal, "foods": foods, 'total_calories':total_calories, 'total_protein':total_protein, 'total_fat':total_fat, 'total_carbs':total_carbs})
 
 
 class MealCreate(LoginRequiredMixin, CreateView):

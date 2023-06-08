@@ -8,7 +8,10 @@
                 <span class="card-title">{{ meal.meal_type }}</span>
                 <p>Meal: {{ meal.meal_type }}</p>
                 <p>Date: {{ meal.date }}</p>
-                <p>Totals: </p>
+                <p>Total Calories: {{total_calories}}</p>
+                <p>Total Protein: {{total_protein}}</p>
+                <p>Total Fat: {{total_fat}}</p>
+                <p>Total Carbs: {{total_carbs}} </p>
             </div>
             <div class="card-action">
                 <a href="{% url 'meals_update' meal.id %}">Edit</a>
