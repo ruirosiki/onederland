@@ -23,13 +23,17 @@
 <div class="card">
   <div class="card-content">
     {% for meal in meal_entries_B%}
-    <span class="card-title">{{ meal.get_meal_type_display }}</span>
+    <div>{% for queryset in food_name_B %}
+    {% for food_name in queryset %}
+    </div>
+    <span class="card-title" style="text-align: center">{{ meal.get_meal_type_display }}</span>
+    <div class="food-name" style="text-align: center; text-transform: capitalize; font-size: 20px"><h8>{{ food_name }}</h8></div><br>
+    <div class="totals"><p>Total Calories: {{total_calories_B}}</p>
     <p>Total Fat: {{total_fat_B}}</p>
     <p>Total Protein: {{total_protein_B}}</p>
     <p>Total Carbs: {{total_carbs_B}}</p>
-    {% for queryset in food_name_B %}
-    {% for food_name in queryset %}
-    <h8>{{ food_name }}</h8>
+    </div>
+    
     <div class="card-action">
     </div>
     {%endfor%}

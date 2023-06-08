@@ -4,7 +4,7 @@
 <h1>Meal List</h1>
 
 {% for meal in meals %}
-<a href="{% url 'detail' meal.id %}" style="color: #fa475d">
+<a href="{% url 'detail' meal.id %}" onmouseover="this.style.color='#DBD0CF'" onmouseout="this.style.color='#FA475D'" style="color: #fa475d">
     <div class="card">
         <div class="card-content">
             <span class="card-title">{{ meal.get_meal_type_display }}</span>
