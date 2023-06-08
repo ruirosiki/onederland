@@ -56,7 +56,16 @@ def foods_API(request):
 
 def home(request):
     today = date.today()
+    meal_entries = Meal.objects.filter(date = today)
+    total_calories = meal_entries.aggregate(total=Sum('foods__total_calories'),)['total']
+    total_fat = meal_entries.aggregate(total=Sum('foods__total_fat'),)['total']
+    total_protein = meal_entries.aggregate(total=Sum('foods__total_protein'),)['total']
+    total_carbs = meal_entries.aggregate(total=Sum('foods__total_carbs'),)['total']
+
     meal_entries_B = Meal.objects.filter(date = today, meal_type = 'B')
+    food_name = Meal.foods.values_list('name') 
+    food_name = list(food_name)
+    print(food_name)
     total_calories_B = meal_entries_B.aggregate(total=Sum('foods__total_calories'),)['total']
     total_fat_B = meal_entries_B.aggregate(total=Sum('foods__total_fat'),)['total']
     total_protein_B = meal_entries_B.aggregate(total=Sum('foods__total_protein'),)['total']
@@ -74,7 +83,7 @@ def home(request):
     total_protein_D = meal_entries_D.aggregate(total=Sum('foods__total_protein'),)['total']
     total_carbs_D = meal_entries_D.aggregate(total=Sum('foods__total_carbs'),)['total']
 
-    context = {'total_calories_B': total_calories_B, 'total_fat_B':total_fat_B, 'total_protein_B':total_protein_B, 'total_carbs_B':total_carbs_B,'total_calories_L': total_calories_L, 'total_fat_L':total_fat_L, 'total_protein_L':total_protein_L, 'total_carbs_L':total_carbs_L,'total_calories_D': total_calories_D, 'total_fat_D':total_fat_D, 'total_protein_D':total_protein_D, 'total_carbs_D':total_carbs_D, 'today':today, 'meal_entries_B':meal_entries_B, 'meal_entries_L':meal_entries_L, 'meal_entries_D':meal_entries_D}
+    context = {'total_calories_B': total_calories_B, 'total_fat_B':total_fat_B, 'total_protein_B':total_protein_B, 'total_carbs_B':total_carbs_B,'total_calories_L': total_calories_L, 'total_fat_L':total_fat_L, 'total_protein_L':total_protein_L, 'total_carbs_L':total_carbs_L,'total_calories_D': total_calories_D, 'total_fat_D':total_fat_D, 'total_protein_D':total_protein_D, 'total_carbs_D':total_carbs_D, 'today':today, 'meal_entries_B':meal_entries_B, 'meal_entries_L':meal_entries_L, 'meal_entries_D':meal_entries_D, 'total_calories': total_calories, 'total_fat':total_fat, 'total_protein':total_protein, 'total_carbs':total_carbs, 'meal_entries':meal_entries, 'food_name':food_name}
     return render(request, "home.html", context)
 
 
