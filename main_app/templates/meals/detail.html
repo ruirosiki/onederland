@@ -1,66 +1,67 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row">
-    <div class="col s6">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">{{ meal.meal_type }}</span>
-                <p>Meal: {{ meal.meal_type }}</p>
-                <p>Date: {{ meal.date }}</p>
-                <p>Total Calories: {{total_calories}}</p>
-                <p>Total Protein: {{total_protein}}</p>
-                <p>Total Fat: {{total_fat}}</p>
-                <p>Total Carbs: {{total_carbs}} </p>
-            </div>
-            <div class="card-action">
-                <a href="{% url 'meals_update' meal.id %}">Edit</a>
-                <a href="{% url 'meals_delete' meal.id %}">Delete</a>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <h3>{{ meal.name }} Foods</h3>
-                    {% if meal.foods.count %}
-                    {% for food in meal.foods.all %}
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">
-                                {{ food.name }}
-                            </span>
-                        </div>
-                        <div class="card-action">
-                            <form action="{% url 'unassoc_food' meal.id food.id%}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn">Remove</button>
-                            </form>
-                        </div>
+
+<div class="col s6">
+    <div class="card">
+        <div id="meal-type-detail" class="card-content">
+            <span id="meal-detail-title" class="card-title">{{ meal.get_meal_type_display }}</span>
+            <p>Date: {{ meal.date }}</p>
+            <p>Totals: </p>
+        </div>
+        <div class="card-action">
+            <a id="edit-delete" class="dotted" href="{% url 'meals_update' meal.id %}"
+                onmouseover="this.style.color='#DBD0CF'" onmouseout="this.style.color='#FA475D'"
+                style="color: #F73152">Edit</a>
+            <a class="dotted" href="{% url 'meals_delete' meal.id %}" onmouseover="this.style.color='#DBD0CF'"
+                onmouseout="this.style.color='#FA475D'" style="color: #F73152">Delete</a>
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <h5>{{ meal.name }} Foods</h5>
+                {% if meal.foods.count %}
+                {% for food in meal.foods.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            {{ food.name }}
+                        </span>
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    <h5>No Foods </h5>
-                    {% endif %}
-                </div>
-                <div class="col s6">
-                    <h3>Available Foods</h3>
-                    {% if foods.count %}
-                    {% for food in foods.all %}
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">
-                                {{ food.name }}
-                            </span>
-                        </div>
-                        <div class="card-action">
-                            <form action="{% url 'assoc_food' meal.id food.id%}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn">Add</button>
-                            </form>
-                        </div>
+                    <div class="card-action">
+                        <form action="{% url 'unassoc_food' meal.id food.id%}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" onmouseover="this.style.color='#DBD0CF'"
+                                onmouseout="this.style.color='white'" style="background-color: #fa475d">Remove</button>
+                        </form>
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    <h5> No Foods Available</h5>
-                    {% endif %}
                 </div>
+                {% endfor %}
+                {% else %}
+                <h5>No Foods </h5>
+                {% endif %}
             </div>
-            {% endblock %}
+            <div class="col s6">
+                <h5>Available Foods</h5>
+                {% if foods.count %}
+                {% for food in foods.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            {{ food.name }}
+                        </span>
+                    </div>
+                    <div class="card-action">
+                        <form action="{% url 'assoc_food' meal.id food.id%}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" onmouseover="this.style.color='#DBD0CF'"
+                                onmouseout="this.style.color='white'" style="background-color: #fa475d">Add</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h5> No Foods Available</h5>
+                {% endif %}
+            </div>
+        </div>
+        {% endblock %}
