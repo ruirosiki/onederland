@@ -18,24 +18,24 @@
 <body>
     <header class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper" style="background-color: #818CAC">
+            <div class="nav-wrapper">
                 <ul>
-                    <li><a href=" /" class="left brand-logo" style="color: #e8e9f3">&nbsp;&nbsp;Onederland</a></li>
+                    <li><a href=" /" class="left brand-logo" style="color: #513f43">&nbsp;&nbsp;Onederland</a></li>
                 </ul>
                 <ul class="right">
-                    <li><a href="{% url 'about' %}" style="color: #e8e9f3">About</a></li>
+                    <li><a href="{% url 'about' %}" style="color: #513f43">About</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'meals_index' %}" style="color: #e8e9f3">Meals</a></li>
-                    <li><a href="{% url 'meals_create' %}" style="color: #e8e9f3">Add Meals</a></li>
-                    <li><a href="{% url 'foods_index' %}" style="color: #e8e9f3">Foods</a></li>
-                    <li><a href="{% url 'foods_search' %}" style="color: #e8e9f3">Add Food</a></li>
+                    <li><a href="{% url 'meals_index' %}" style="color: #513f43">Meals</a></li>
+                    <li><a href="{% url 'meals_create' %}" style="color: #513f43">Add Meals</a></li>
+                    <li><a href="{% url 'foods_index' %}" style="color: #513f43">Foods</a></li>
+                    <li><a href="{% url 'foods_search' %}" style="color: #513f43">Add Food</a></li>
 
-                    <li><a href="{% url 'logout' %}" style="color: #e8e9f3">Log Out</a></li>
+                    <li><a href="{% url 'logout' %}" style="color: #513f43">Log Out</a></li>
 
 
                     {% else %}
-                    <li><a href="{% url 'signup' %}" style="color: #e8e9f3">Sign Up</a></li>
-                    <li><a href="{% url 'login' %}" style="color: #e8e9f3">Log In</a></li>
+                    <li><a href="{% url 'signup' %}" style="color: #513f43">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}" style="color: #513f43">Log In</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -45,7 +45,7 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="page-footer" style="background-color: #818CAC">
+    <footer class="page-footer">
         <div class="center">All Rights Reserved, &copy; 2023 Onederland &nbsp;</div>
     </footer>
 </body>
