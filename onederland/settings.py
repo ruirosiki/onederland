@@ -82,13 +82,7 @@ WSGI_APPLICATION = "onederland.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "onederland",
-#     }
-# }
-# psql 'postgresql://ruirosiki:E24SwGtkLUDT@ep-white-leaf-310106.us-west-2.aws.neon.tech/neondb'
+# DATA
 
 # DATABASES = {
 #     "default": dj_database_url.config(
