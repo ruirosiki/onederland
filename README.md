@@ -5,7 +5,7 @@ This full-stack web application uses CRUD to create a food journal allowing the 
 # Sreenshots
 
 ![Home Page](https://i.imgur.com/nIQks7u.png)
-![User Stats](https://i.imgur.com/dag6x4T.png)
+![User Stats](https://i.imgur.com/MWg1qE3.png)
 ![Add Food](https://i.imgur.com/fiebEhn.png)
 ![Food List](https://i.imgur.com/0LEku4e.png)
 ![Build Meal](https://i.imgur.com/pzZplJO.png)
