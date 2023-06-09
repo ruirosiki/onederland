@@ -5,7 +5,7 @@ Track progress toward your nutrition, and weight loss goals with Onederland. Thi
 
 Wireframe and UI:
 Home Page:
-![alt text](./images/mainpage.png.png)
+![alt text](./images/mainpage.png)
 Add meals page:
 ![alt text](./images/addmeal.png)
 Foods Page:
