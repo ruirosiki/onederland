@@ -5,15 +5,15 @@ Track progress toward your nutrition, and weight loss goals with Onederland. Thi
 
 Wireframe and UI:
 Home Page:
-![alt text](./imgs/mainpage.png)
+![alt text](./images/mainpage.png.png)
 Add meals page:
-![alt text](./imgs/addmeal.png)
+![alt text](./images/addmeal.png)
 Foods Page:
-![alt text](./imgs/foodpage.png)
+![alt text](./images/foodpage.png)
 About Page:
-![alt text](./imgs/about.png)
+![alt text](./images/about.png)
 Meals Page:
-![alt text](./imgs/mealpage.png)
+![alt text](./images/mealpage.png)
 
 
 Technologies used:  Python, Bootstrap, Django, Postgresql
