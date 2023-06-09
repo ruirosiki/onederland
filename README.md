@@ -26,7 +26,7 @@ This full-stack web application uses CRUD to create a food journal allowing the 
 
 If a user does not have an account, they will be able to create one, otherwise the user will login to the app. Once logged in the user will see their daily stats including a running total of all calories, fats, proteins, and carbs as well as a breakdown for each meal. The user will be able to create a new meal or create a new food. When creating a new food, the user can search for their food of choice and the information will be auto-populated on a form to add to their list of foods. The user can also indicate portion sizes to receive the correct stat values for their portion size. Once a food is added to their list of foods, a user can then add that food to their meal to track their daily stats.
 
-[Click to Start Using Onederland](<(https://onederland.onrender.com)>)
+[Click to Start Using Onederland](https://onederland.onrender.com)
 
 ## Future Features
 
