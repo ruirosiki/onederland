@@ -7,7 +7,11 @@
         <div id="meal-type-detail" class="card-content">
             <span id="meal-detail-title" class="card-title">{{ meal.get_meal_type_display }}</span>
             <p>Date: {{ meal.date }}</p>
-            <p>Totals: </p>
+            <br>
+            <p>Total Calories: {{total_calories}}</p>
+            <p>Total Protein: {{total_protein}}</p>
+            <p>Total Fat: {{total_fat}}</p>
+            <p>Total Carbs: {{total_carbs}} </p>
         </div>
         <div class="card-action">
             <a id="edit-delete" class="dotted" href="{% url 'meals_update' meal.id %}"

@@ -96,6 +96,7 @@ WSGI_APPLICATION = "onederland.wsgi.application"
 #         conn_max_age=600,
 #     )
 # }
+# uncomment for deployment
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
